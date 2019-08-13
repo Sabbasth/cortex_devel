@@ -18,3 +18,7 @@ If you want to restart a single component use `make restart <component>`.
 For example: `make restart lb`
 
 Stop the stack with `make stop`
+
+# TODO
+- Split Cortex in µservices
+- Test what happens to data if Cortex is shortly unavailable (cached?). Use lb outage to simulate?
