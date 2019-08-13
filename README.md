@@ -2,7 +2,7 @@
 This is a simple Docker compose stack.
 
 It embeds:
-- `Grafana` has data sources configured in [grafana/datasources]()
+- `Grafana` has data sources configured in [grafana/datasources](grafana/datasources)
 - `prometheus` generates data from itself
 - `cortex` starts with 3 instances
 - `consul` single-node to make cortex instances work as a cluster
