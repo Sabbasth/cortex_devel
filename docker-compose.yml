@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  cortex:
+    image: quay.io/cortexproject/cortex:v0.1.0
+    depends_on:
+      - consul
+    volumes:
+      - type: bind
+        source: ./cortex/files/etc/cortex.yml
+        target: /etc/cortex.yml
+    command: -config.file=/etc/cortex.yml -ring.store=consul -consul.hostname=consul:8500
+
+  prometheus:
+    image: prom/prometheus
+    depends_on:
+      - cortex
+    volumes:
+      - type: bind
+        source: ./prometheus/files/etc/prometheus/prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - lb
+    ports:
+      - "3000:3000"
+
+  consul:
+    image: consul
+    ports:
+      - "8500:8500"
+
+  lb:
+    image: nginx:alpine
+    ports:
+      - "9009:9009"
+    volumes:
+      - type: bind
+        source: ./lb/files/etc/nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: yes
+    depends_on:
+      - cortex

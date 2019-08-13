@@ -1,0 +1,1 @@
+{"id":1,"orgId":1,"name":"Cortex","type":"prometheus","typeLogoUrl":"public/app/plugins/datasource/prometheus/img/prometheus_logo.svg","access":"proxy","url":"http://lb:9009/api/prom","password":"","user":"","database":"","basicAuth":false,"isDefault":true,"jsonData":{"keepCookies":[]},"readOnly":false}
