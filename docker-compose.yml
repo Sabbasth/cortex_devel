@@ -8,7 +8,7 @@ services:
       - type: bind
         source: ./cortex/files/etc/cortex.yml
         target: /etc/cortex.yml
-    command: -config.file=/etc/cortex.yml -ring.store=consul -consul.hostname=consul:8500
+    command: -config.file=/etc/cortex.yml -ring.store=consul -consul.hostname=consul:8500 -distributor.replication-factor=3
 
   prometheus:
     image: prom/prometheus
@@ -28,13 +28,12 @@ services:
 
   consul:
     image: consul
-    ports:
-      - "8500:8500"
 
   lb:
     image: nginx:alpine
     ports:
       - "9009:9009"
+      - "8500:8500"
     volumes:
       - type: bind
         source: ./lb/files/etc/nginx/nginx.conf

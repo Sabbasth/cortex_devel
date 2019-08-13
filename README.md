@@ -9,6 +9,9 @@ It embeds:
 - `nginx` to act as load balancer for both Prom & Grafana
 
 # Usage
+Ensure your docker engine is running and that you have make.
+Makefile developed with Apple's GNU make. However it should be portable.
+
 Start the stack with `make start`, and visit Grafana at http://localhost:3000 (user is "admin:admin")
 By default 3 `cortex` instances are spawned.
 
@@ -20,5 +23,9 @@ For example: `make restart lb`
 Stop the stack with `make stop`
 
 # TODO
-- Split Cortex in µservices
-- Test what happens to data if Cortex is shortly unavailable (cached?). Use lb outage to simulate?
+- If DB is centralized, are shards distributed or all µservice reads the same data?
+
+# Results
+- HA is easy, stateless [except for ingesters](https://github.com/cortexproject/cortex/blob/master/docs/architecture.md)
+- Specialization of µservices is done by the lb, no config.
+- Short outages is [managed by Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) (retry, backoff, buffer size, etc.). /!\ Seems legit but impossible to theorize. Very empirical /!\

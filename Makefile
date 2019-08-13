@@ -17,5 +17,7 @@ stop:
 	@docker-compose down
 up:
 	@docker-compose up -d --scale cortex=3
+
+# hack normal behavior to allow more convenient use for the restart and kill targets
 %:
 	@:
